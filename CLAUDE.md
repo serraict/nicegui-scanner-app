@@ -47,7 +47,15 @@ We follow NiceGUI's custom Vue component pattern as shown in the examples direct
 - **Python Element** (`scanner.py`)
   - `BarcodeScanner` class extends `nicegui.element.Element`
   - Specifies `component='barcode_scanner.vue'`
-  - Minimal wrapper around Vue component
+  - Accepts `on_scan` callback for handling Vue events
+  - Uses `self.on('scan', callback)` to register event handlers
+
+### Vue↔Python Communication
+
+**Event Pattern:**
+- **Vue**: `this.$emit('eventName', data)` - emits events with data
+- **Python**: `self.on('eventName', callback)` - registers event handlers
+- **Important**: Events come wrapped in `GenericEventArguments` - extract data via `event.args`
 
 ### Development Notes
 

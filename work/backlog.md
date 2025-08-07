@@ -1,5 +1,12 @@
 # Backlog
 
+## How to start from a fresh clone
+
+1. **Install Python dependencies**: `uv sync`
+2. **Install JavaScript dependencies**: `npm install` 
+3. **Run the app**: `uv run src/nicegui_scanner/app.py`
+4. **Open browser**: http://localhost:3001
+
 ## Incremental Working Examples
 
 1. **Minimal barcode scanner component**

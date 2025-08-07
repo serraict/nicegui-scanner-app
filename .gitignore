@@ -61,7 +61,6 @@ Thumbs.db
 # Node modules (for JavaScript dependencies)
 node_modules/
 *.tgz
-package-lock.json
 yarn.lock
 
 # uv

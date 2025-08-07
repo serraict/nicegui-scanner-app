@@ -1,21 +1,18 @@
 # Doing
 
-**Goal:** Minimal barcode scanner component
+**Goal:** Add barcode detection
 
-Create a working barcode scanner that shows camera feed with barcode scanning capability.
+Configure vue-barcode-scanner to detect barcodes and provide visual feedback when barcodes are detected.
 
 ## Acceptance Criteria
 
-- [x] Vue component that displays camera feed using vue-barcode-scanner
-- [x] Python element wrapper around the Vue component  
-- [x] Simple demo app showing the scanner view
-- [x] *Result: Working app that shows camera feed with barcode scanner ready*
+- [ ] Configure vue-barcode-scanner to detect barcodes
+- [ ] Visual feedback when barcodes are detected
+- [ ] *Result: Working app that visually detects barcodes*
 
 ## Tasks
 
-- [x] Research vue-barcode-scanner library and integration approach
-- [x] Download and include vue-barcode-scanner JavaScript dependencies
-- [x] Create Vue component wrapper for the scanner
-- [x] Create Python Element subclass to bridge Vue component
-- [x] Build demo application showing scanner in action
-- [x] Test and verify working example meets acceptance criteria
+- [ ] Integrate ZXing library for barcode detection
+- [ ] Update Vue component to detect barcodes from camera feed
+- [ ] Add visual feedback (highlight, overlay, etc.) when barcode is detected
+- [ ] Test and verify barcode detection works with common barcode formats

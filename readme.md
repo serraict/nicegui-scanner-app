@@ -9,6 +9,8 @@ and inspired by the [custom vue component example].
 Install dependencies and run the hello world app:
 
 ```bash
+npm install
+uv sync
 uv run src/nicegui_scanner/app.py
 ```
 

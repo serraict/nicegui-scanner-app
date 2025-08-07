@@ -1,7 +1,7 @@
 # Definition of Done
 
 This document defines our shared understanding of what it means to complete a backlog item (increment).
-
+1.
 - Each increment should result in a **working, runnable application**
 - Focus on delivering value, not perfect code
 - Iterate and improve based on learnings from each increment

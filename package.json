@@ -1,0 +1,9 @@
+{
+  "name": "nicegui-scanner-app-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JavaScript dependencies for NiceGUI barcode scanner app",
+  "dependencies": {
+    "vue-barcode-reader": "^1.0.3"
+  }
+}

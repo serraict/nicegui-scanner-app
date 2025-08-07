@@ -25,7 +25,7 @@ Our development workflow follows an incremental approach:
 
 - Each increment results in a working, runnable application
 - Commit work regularly
-- Manual verification is our primary testing approach
+- Manual verification is our primary testing approach - this means actually testing in a browser, not just checking that commands run without errors
 - Focus on delivering value over perfect code
 
 ## Architecture
@@ -34,25 +34,22 @@ We follow the pattern from NiceGUI's custom vue component example, which is incl
 
 ### Custom Vue Component Pattern
 
-The project follows NiceGUI's custom Vue component pattern with two implementation approaches:
+We follow NiceGUI's custom Vue component pattern as shown in the examples directory:
 
-1. **JavaScript Components** (`counter.js` + `counter.py`)
-   - Frontend: Pure JavaScript Vue component definition
-   - Backend: Python Element subclass with `component='counter.js'`
+**Our Implementation:**
+- **Vue SFC Component** (`barcode_scanner.vue`)
+  - Uses native browser APIs like `getUserMedia` for camera access
+  - Minimal template with video element for camera feed
+  - Component served from `src/nicegui_scanner/` directory
 
-2. **Vue SFC Components** (`on_off.vue` + `on_off.py`)
-   - Frontend: Single-File Component with template, script, and style sections
-   - Backend: Python Element subclass with `component='on_off.vue'`
-
-### Component Structure
-
-- Python classes extend `nicegui.element.Element`
-- Frontend components emit 'change' events to communicate with Python backend
-- Backend methods can be called from frontend using `run_method()`
-- Props are passed from Python to Vue components via `self._props`
+- **Python Element** (`scanner.py`)
+  - `BarcodeScanner` class extends `nicegui.element.Element`
+  - Specifies `component='barcode_scanner.vue'`
+  - Minimal wrapper around Vue component
 
 ### Development Notes
 
-- Browser cache must be disabled when making changes to `.js` files
+- JavaScript dependencies managed via npm in project root
+- Static files served via `app.add_static_files()` when needed
+- Manual browser verification required for camera-based components
 - Use `uvicorn_reload_includes='*.py,*.js,*.vue'` for auto-reload during development
-- Components communicate bidirectionally: Python→Vue via props, Vue→Python via events

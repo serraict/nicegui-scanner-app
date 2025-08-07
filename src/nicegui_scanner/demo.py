@@ -1,12 +1,11 @@
 from nicegui import ui, app
 from scanner import BarcodeScanner
 
-# Serve node_modules for potential future JS dependencies
+# Serve node_modules for the ZXing library
 app.add_static_files('/node_modules', 'node_modules')
 
 ui.label("Barcode Scanner Demo")
 
 BarcodeScanner()
 
-if __name__ in {"__main__", "__mp_main__"}:
-    ui.run(port=3001)
+ui.run(port=3001)

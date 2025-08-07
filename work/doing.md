@@ -1,6 +1,6 @@
 # Doing
 
-Goal: set up basic Python project structure.
+✅ Goal: set up basic Python project structure.
 
 ## Completed ✅
 
@@ -12,19 +12,19 @@ Goal: set up basic Python project structure.
 
 ### Phase 1: Python Project Setup
 
-- [ ] Initialize project with `uv init`
-- [ ] Create suitable .gitignore
-- [ ] Set up pyproject.toml with NiceGUI dependency
+- [x] Initialize project with `uv init` - Project initialized with Python 3.12
+- [x] Create suitable .gitignore - Comprehensive .gitignore added  
+- [x] Set up pyproject.toml with NiceGUI dependency - NiceGUI 2.22.1+ configured
 
 ### Phase 2: Hello World App
 
-- [ ] Create simple NiceGUI hello world app
-- [ ] Verify we can run it successfully
-- [ ] Update readme with actual run commands
+- [x] Create simple NiceGUI hello world app - Basic app with label and button
+- [x] Verify we can run it successfully - Runs on <http://localhost:3001>
+- [x] Update readme with actual run commands - Clear instructions added
 
 ### Phase 3: Project Structure
 
-- [ ] Clear directory structure (separate from examples)
-- [ ] Document project layout
+- [x] Clear directory structure (separate from examples) - Main code in src/nicegui_scanner/
+- [x] Document project layout - Project structure documented in readme
 
 **Note:** JavaScript dependencies will be added when we start backlog item 1 (scanner component).

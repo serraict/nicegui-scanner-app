@@ -17,6 +17,8 @@ The work we envision doing is <./work/backlog.md>.
 Our current work is in <./doing.md>.
 After finishing the work in doing.md, reflect on the work and the process. If needed adapt workflow and/or backlog before proceeeding with the next item.
 
+Commit work regularly.
+
 ## Architecture
 
 We follow the pattern from NiceGUI's custom vue component example, which is included in the examples directory for reference.

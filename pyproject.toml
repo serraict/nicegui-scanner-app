@@ -1,0 +1,9 @@
+[project]
+name = "nicegui-scanner-app"
+version = "0.1.0"
+description = "NiceGUI barcode scanner app - wraps vue-barcode-scanner into a NiceGUI UI element"
+readme = "readme.md"
+requires-python = ">=3.12"
+dependencies = [
+    "nicegui>=2.22.1",
+]

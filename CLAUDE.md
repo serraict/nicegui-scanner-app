@@ -12,12 +12,21 @@ Us `uv` for dependency management an project initialization.
 
 ## Workflow
 
-Project vision is described in <readme.md>.
-The work we envision doing is <./work/backlog.md>.
-Our current work is in <./doing.md>.
-After finishing the work in doing.md, reflect on the work and the process. If needed adapt workflow and/or backlog before proceeeding with the next item.
+Our development workflow follows an incremental approach:
 
-Commit work regularly.
+1. **Vision** - Project goals described in `readme.md`
+2. **Planning** - Work planned in `./work/backlog.md` (incremental working examples)
+3. **Execution** - Current work tracked in `./work/doing.md`
+4. **Quality** - Definition of Done in `./work/definition-of-done.md`
+5. **Reflection** - After completing doing.md, reflect on process and adapt if needed
+6. **Transition** - Clear doing.md and pull next item from backlog
+
+**Key principles:**
+
+- Each increment results in a working, runnable application
+- Commit work regularly
+- Manual verification is our primary testing approach
+- Focus on delivering value over perfect code
 
 ## Architecture
 

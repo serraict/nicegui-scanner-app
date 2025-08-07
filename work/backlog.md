@@ -2,10 +2,6 @@
 
 ## Incremental Working Examples
 
-- **Add scan results to Python**
-  - Emit scan events from Vue to Python
-  - Display scanned data in Python UI
-  - *Result: Working app that scans codes and shows results*
 - **Add scan controls**
   - Start/stop scanning buttons
   - Manual trigger capability

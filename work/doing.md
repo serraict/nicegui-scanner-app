@@ -1,18 +1,19 @@
 # Doing
 
-**Goal:** Add barcode detection
+**Goal:** Add scan results to Python
 
-Configure vue-barcode-scanner to detect barcodes and provide visual feedback when barcodes are detected.
+Emit scan events from Vue to Python and display scanned data in Python UI.
 
 ## Acceptance Criteria
 
-- [x] Configure vue-barcode-scanner to detect barcodes
-- [x] Visual feedback when barcodes are detected
-- [x] *Result: Working app that visually detects barcodes*
+- [ ] Emit scan events from Vue to Python
+- [ ] Log scan events to the python console
+- [ ] Display scanned data in Python UI
+- [ ] *Result: Working app that scans codes and shows results*
 
 ## Tasks
 
-- [x] Integrate ZXing library for barcode detection
-- [x] Update Vue component to detect barcodes from camera feed
-- [x] Add visual feedback (highlight, overlay, etc.) when barcode is detected
-- [x] Test and verify barcode detection works with common barcode formats
+- [ ] Update Vue component to emit scan events to Python backend
+- [ ] Update Python Element class to handle scan events
+- [ ] Add Python UI components to display scan results
+- [ ] Test and verify scan results appear in Python UI

@@ -15,6 +15,7 @@ Us `uv` for dependency management an project initialization.
 Project vision is described in <readme.md>.
 The work we envision doing is <./work/backlog.md>.
 Our current work is in <./doing.md>.
+After finishing the work in doing.md, reflect on the work and the process. If needed adapt workflow and/or backlog before proceeeding with the next item.
 
 ## Architecture
 

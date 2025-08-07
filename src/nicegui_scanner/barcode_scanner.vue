@@ -11,12 +11,12 @@ export default {
   data() {
     return {
       codeReader: null,
+      isScanning: false,
     };
   },
 
   async mounted() {
     await this.loadZXing();
-    await this.startCamera();
   },
 
   beforeUnmount() {
@@ -42,23 +42,46 @@ export default {
       });
     },
 
-    async startCamera() {
+    async initCamera() {
       try {
         // Initialize ZXing barcode reader
         this.codeReader = new window.ZXing.BrowserMultiFormatReader();
         
-        // Start camera and barcode detection
-        this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
-          if (result) {
-            console.log('Barcode detected:', result.text);
-            // Emit event to Python backend
-            this.$emit('scan', result.text);
-          }
-        });
+        // Start camera (but not scanning yet)
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        this.$refs.scanner.srcObject = stream;
       } catch (error) {
-        console.log("Scanner error:", error);
+        console.log("Camera error:", error);
       }
     },
+
+    async startScanning() {
+      if (this.isScanning) return;
+      
+      // Initialize camera and scanner if not done yet
+      if (!this.codeReader) {
+        await this.initCamera();
+      }
+      
+      this.isScanning = true;
+      this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
+        if (result && this.isScanning) {
+          console.log('Barcode detected:', result.text);
+          // Emit event to Python backend
+          this.$emit('scan', result.text);
+        }
+      });
+    },
+
+    stopScanning() {
+      if (!this.isScanning) return;
+      
+      this.isScanning = false;
+      if (this.codeReader) {
+        this.codeReader.reset();
+      }
+    },
+
   },
 };
 </script>
@@ -71,6 +94,10 @@ export default {
 video {
   width: 100%;
   max-width: 400px;
+  height: 300px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 </style>

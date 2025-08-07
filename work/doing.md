@@ -6,14 +6,14 @@ Add start/stop scanning buttons and manual trigger capability to give users cont
 
 ## Acceptance Criteria
 
-- [ ] Start/stop scanning buttons
-- [ ] Manual trigger capability  
-- [ ] *Result: Working app with user-controlled scanning*
+- [x] Start/stop scanning buttons
+- [ ] ~~Manual trigger capability~~ cancelled
+- [x] *Result: Working app with user-controlled scanning*
 
 ## Tasks
 
-- [ ] Add start/stop methods to Vue component
-- [ ] Add UI controls (start/stop buttons) to Python app
-- [ ] Connect Python buttons to Vue methods via events
-- [ ] Add manual trigger functionality
-- [ ] Test and verify scan controls work properly
+- [x] Add start/stop methods to Vue component
+- [x] Add UI controls (start/stop buttons) to Python app
+- [x] Connect Python buttons to Vue methods via events
+- [x] Add manual trigger functionality
+- [x] Test and verify scan controls work properly

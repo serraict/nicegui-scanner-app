@@ -12,10 +12,25 @@ def on_scan(event):
     ui.notify(f"Scanned: {barcode_text}")
 
 
-ui.label("Barcode Scanner Demo")
-
 # Scanner component
-BarcodeScanner(on_scan=on_scan)
+scanner = BarcodeScanner(on_scan=on_scan)
+
+# Control buttons
+with ui.row():
+
+    def toggle_scanning():
+        if scanner.is_scanning():
+            scanner.stop_scanning()
+            scan_toggle.props("icon=play_arrow color=primary")
+            scan_toggle.text = "Start Scanning"
+        else:
+            scanner.start_scanning()
+            scan_toggle.props("icon=stop color=negative")
+            scan_toggle.text = "Stop Scanning"
+
+    scan_toggle = ui.button(
+        "Start Scanning", icon="play_arrow", color="primary", on_click=toggle_scanning
+    )
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(port=3001)

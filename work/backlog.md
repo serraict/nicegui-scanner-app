@@ -10,3 +10,7 @@
   - Select barcode formats
   - Choose camera (front/back)
   - *Result: Working app with customizable scanning*
+- **Add manual trigger**
+  - Single "Scan Once" button for one-time scans
+  - Manual barcode detection without continuous scanning
+  - *Result: Working app with on-demand scanning capability*

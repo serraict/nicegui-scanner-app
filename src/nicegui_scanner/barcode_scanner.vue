@@ -1,7 +1,6 @@
 <template>
   <div class="scanner-container">
     <video ref="scanner" autoplay></video>
-    <div v-if="lastScan" class="scan-result">{{ lastScan }}</div>
   </div>
 </template>
 
@@ -12,7 +11,6 @@ export default {
   data() {
     return {
       codeReader: null,
-      lastScan: null,
     };
   },
 
@@ -52,8 +50,9 @@ export default {
         // Start camera and barcode detection
         this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
           if (result) {
-            this.lastScan = result.text;
             console.log('Barcode detected:', result.text);
+            // Emit event to Python backend
+            this.$emit('scan', result.text);
           }
         });
       } catch (error) {
@@ -74,16 +73,4 @@ video {
   max-width: 400px;
 }
 
-.scan-result {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 3px;
-  font-family: monospace;
-  max-width: 90%;
-  word-break: break-all;
-}
 </style>

@@ -39,7 +39,9 @@ We follow NiceGUI's custom Vue component pattern as shown in the examples direct
 **Our Implementation:**
 - **Vue SFC Component** (`barcode_scanner.vue`)
   - Uses native browser APIs like `getUserMedia` for camera access
-  - Minimal template with video element for camera feed
+  - Integrates ZXing library via UMD build for barcode detection
+  - Dynamic script loading: `/node_modules/@zxing/library/umd/index.min.js`
+  - Visual overlay feedback showing detected barcode results
   - Component served from `src/nicegui_scanner/` directory
 
 - **Python Element** (`scanner.py`)
@@ -51,5 +53,6 @@ We follow NiceGUI's custom Vue component pattern as shown in the examples direct
 
 - JavaScript dependencies managed via npm in project root
 - Static files served via `app.add_static_files()` when needed
+- **ZXing Integration**: Use UMD build to avoid ES module complexity
 - Manual browser verification required for camera-based components
 - Use `uvicorn_reload_includes='*.py,*.js,*.vue'` for auto-reload during development

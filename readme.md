@@ -16,6 +16,11 @@ uv run src/nicegui_scanner/app.py
 
 This will start the NiceGUI app on <http://localhost:3001>
 
+## Questions
+
+- How to byndle node module with NiceGUI elements?
+-
+
 [vue-barcode-scanner]: https://www.npmjs.com/package/vue-barcode-reader
 [NiceGUI]: https://nicegui.io/
 [custom vue component example]: https://github.com/zauberzeug/nicegui/tree/main/examples/custom_vue_component

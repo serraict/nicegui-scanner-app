@@ -6,13 +6,13 @@ Configure vue-barcode-scanner to detect barcodes and provide visual feedback whe
 
 ## Acceptance Criteria
 
-- [ ] Configure vue-barcode-scanner to detect barcodes
-- [ ] Visual feedback when barcodes are detected
-- [ ] *Result: Working app that visually detects barcodes*
+- [x] Configure vue-barcode-scanner to detect barcodes
+- [x] Visual feedback when barcodes are detected
+- [x] *Result: Working app that visually detects barcodes*
 
 ## Tasks
 
-- [ ] Integrate ZXing library for barcode detection
-- [ ] Update Vue component to detect barcodes from camera feed
-- [ ] Add visual feedback (highlight, overlay, etc.) when barcode is detected
-- [ ] Test and verify barcode detection works with common barcode formats
+- [x] Integrate ZXing library for barcode detection
+- [x] Update Vue component to detect barcodes from camera feed
+- [x] Add visual feedback (highlight, overlay, etc.) when barcode is detected
+- [x] Test and verify barcode detection works with common barcode formats

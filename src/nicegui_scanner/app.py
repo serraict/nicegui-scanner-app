@@ -28,12 +28,21 @@ with ui.row():
             scan_toggle.props("icon=stop color=negative")
             scan_toggle.text = "Stop Scanning"
 
+    def on_scanning_failed(event):
+        """Handle when scanning fails to start."""
+        # Reset button to start state when scanning fails
+        scan_toggle.props("icon=play_arrow color=primary")
+        scan_toggle.text = "Start Scanning"
+
     scan_toggle = ui.button(
         "Start Scanning",
         icon="play_arrow",
         color="primary",
         on_click=toggle_scanning
     )
+
+    # Set up scanning failed handler after button is created
+    scanner.on("scanning_failed", on_scanning_failed)
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(port=3001)

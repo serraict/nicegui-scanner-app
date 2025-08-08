@@ -45,15 +45,16 @@ export default {
 
     async initCamera() {
       try {
-        // Initialize ZXing barcode reader for multiple format detection
-        this.codeReader = new window.ZXing.BrowserMultiFormatReader();
-        
-        // Request camera access and connect to video element
-        // This starts the camera preview but doesn't begin barcode scanning
+        // Request camera access first - this is where permission errors occur
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         this.$refs.scanner.srcObject = stream;
+        
+        // Only initialize ZXing barcode reader after successful camera access
+        this.codeReader = new window.ZXing.BrowserMultiFormatReader();
       } catch (error) {
-        console.log("Camera error:", error);
+        this.handleCameraError(error);
+        // Ensure codeReader stays null on camera error
+        this.codeReader = null;
       }
     },
 
@@ -63,8 +64,15 @@ export default {
       // Initialize camera and scanner if not done yet
       if (!this.codeReader) {
         await this.initCamera();
+        // If camera initialization failed, don't proceed
+        if (!this.codeReader) {
+          // Emit event to inform Python that scanning failed to start
+          this.$emit('scanning_failed');
+          return;
+        }
       }
       
+      // Only set scanning state and start detection if camera is ready
       this.isScanning = true;
       // Start continuous barcode detection from video stream
       // Callback fires whenever a barcode is detected
@@ -84,6 +92,10 @@ export default {
       if (this.codeReader) {
         this.codeReader.reset();
       }
+    },
+
+    handleCameraError(error) {
+      console.log('Camera error:', error.name, error.message);
     },
 
   },

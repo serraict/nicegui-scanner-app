@@ -1,19 +1,23 @@
 # Doing
 
-**Goal:** Add scan controls
+**Goal:** Review, cleanup and document
 
-Add start/stop scanning buttons and manual trigger capability to give users control over the scanning process.
+Review current codebase for improvements, remove unused code, clean up structure and naming, and add/improve documentation.
 
 ## Acceptance Criteria
 
-- [x] Start/stop scanning buttons
-- [ ] ~~Manual trigger capability~~ cancelled
-- [x] *Result: Working app with user-controlled scanning*
+- [ ] Code reviewed for improvements and consistency
+- [ ] Unused code removed (examples, old implementations)
+- [ ] Code structure and naming cleaned up
+- [ ] Documentation and comments added/improved
+- [ ] *Result: Working app with clean, well-documented code*
 
 ## Tasks
 
-- [x] Add start/stop methods to Vue component
-- [x] Add UI controls (start/stop buttons) to Python app
-- [x] Connect Python buttons to Vue methods via events
-- [x] Add manual trigger functionality
-- [x] Test and verify scan controls work properly
+- [x] add flake8 rules to match linter and formatter
+- [ ] Review project structure and identify unused files/code
+- [ ] Clean up imports and dependencies
+- [ ] Standardize naming conventions across components
+- [ ] Add inline documentation for complex logic
+- [ ] Update CLAUDE.md with any architecture changes
+- [ ] Test app still works after cleanup

@@ -29,7 +29,10 @@ with ui.row():
             scan_toggle.text = "Stop Scanning"
 
     scan_toggle = ui.button(
-        "Start Scanning", icon="play_arrow", color="primary", on_click=toggle_scanning
+        "Start Scanning",
+        icon="play_arrow",
+        color="primary",
+        on_click=toggle_scanning
     )
 
 if __name__ in {"__main__", "__mp_main__"}:

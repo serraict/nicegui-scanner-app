@@ -52,9 +52,10 @@ export default {
         // Only initialize ZXing barcode reader after successful camera access
         this.codeReader = new window.ZXing.BrowserMultiFormatReader();
       } catch (error) {
-        this.handleCameraError(error);
-        // Ensure codeReader stays null on camera error
+        console.log('Camera error:', error.name, error.message);
         this.codeReader = null;
+        // Emit event to Python for user notification
+        this.$emit('camera_error', { type: error.name, message: error.message });
       }
     },
 
@@ -94,9 +95,6 @@ export default {
       }
     },
 
-    handleCameraError(error) {
-      console.log('Camera error:', error.name, error.message);
-    },
 
   },
 };

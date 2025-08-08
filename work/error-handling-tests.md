@@ -51,7 +51,57 @@ This document specifies manual tests to verify error handling functionality. Exe
 - ❌ Video feed doesn't appear/disappear
 - ❌ Console errors during normal operation
 
-## Test 3: Permission Denied → Allow → Normal Operation
+## Test 3: No Camera Hardware
+
+**Setup:**
+1. Simulate no camera hardware:
+   - **Method A**: Chrome Dev Tools → Settings (gear icon) → Devices → Camera: "No camera"
+   - **Method B**: Physically disconnect camera (if external USB camera)
+   - **Method C**: Use computer without built-in camera
+2. Refresh the page
+
+**Test Steps:**
+1. Observe initial state: Button should show "Start Scanning" (blue)
+2. Click "Start Scanning" button
+
+**Expected Results:**
+- ✅ Console shows: "Camera error: NotFoundError: [message]"
+- ✅ Button briefly turns red, then immediately back to blue "Start Scanning"
+- ✅ NO uncaught promise errors in console
+- ✅ Button remains clickable for retry
+
+**Failure Indicators:**
+- ❌ Uncaught promise errors in console
+- ❌ Button stays red/shows "Stop Scanning"
+- ❌ Different error message than expected
+
+## Test 4: Camera Busy/In Use
+
+**Setup:**
+1. Try to create camera conflict:
+   - **Method A**: Open multiple tabs of our scanner app, start scanning in first tab, then try second tab
+   - **Method B**: Open OBS Studio or other streaming software with camera source
+   - **Method C**: Open video conferencing app with exclusive camera access
+   - **Method D**: If available, use external USB camera and physically disconnect/reconnect during use
+2. **Note**: Some systems allow camera sharing, so this error might not occur on all setups
+
+**Test Steps:**
+1. Observe initial state: Button should show "Start Scanning" (blue)
+2. Click "Start Scanning" button
+
+**Expected Results:**
+- ✅ **IF camera conflict occurs**: Console shows "Camera error: NotReadableError: [message]"
+- ✅ **IF camera sharing works**: Normal operation (video appears, scanning works)
+- ✅ NO uncaught promise errors in either case
+- ✅ Button behavior matches the actual result (red if working, blue if failed)
+
+**Failure Indicators:**
+- ❌ Uncaught promise errors in console
+- ❌ Button state doesn't match actual camera state
+
+**Note:** This test may pass differently on different systems due to camera sharing capabilities.
+
+## Test 5: Permission Denied → Allow → Normal Operation
 
 **Setup:**
 1. Start with camera blocked (Test 1 setup)
@@ -76,7 +126,9 @@ This document specifies manual tests to verify error handling functionality. Exe
 
 - [ ] Test 1: Camera Permission Denied
 - [ ] Test 2: Normal Camera Access  
-- [ ] Test 3: Permission Denied → Allow → Normal Operation
+- [ ] Test 3: No Camera Hardware
+- [ ] Test 4: Camera Busy/In Use
+- [ ] Test 5: Permission Denied → Allow → Normal Operation
 
 ## Notes
 

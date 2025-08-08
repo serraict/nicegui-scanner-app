@@ -34,6 +34,17 @@ with ui.row():
         scan_toggle.props("icon=play_arrow color=primary")
         scan_toggle.text = "Start Scanning"
 
+    def on_camera_error(event):
+        """Handle camera errors and show user notification."""
+        error_messages = {
+            'NotAllowedError': 'Camera access denied. Please allow camera access and try again.',
+            'NotFoundError': 'No camera detected. Please connect a camera and try again.',
+            'NotReadableError': 'Camera is busy. Please close other camera apps and try again.',
+        }
+        error_type = event.args.get('type', 'Unknown')
+        message = error_messages.get(error_type, 'Camera error occurred. Please check your camera and try again.')
+        ui.notify(message, type='negative')
+
     scan_toggle = ui.button(
         "Start Scanning",
         icon="play_arrow",
@@ -41,8 +52,9 @@ with ui.row():
         on_click=toggle_scanning
     )
 
-    # Set up scanning failed handler after button is created
+    # Set up event handlers after button is created
     scanner.on("scanning_failed", on_scanning_failed)
+    scanner.on("camera_error", on_camera_error)
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(port=3001)

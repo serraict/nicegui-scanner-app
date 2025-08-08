@@ -19,7 +19,7 @@ This will start the NiceGUI app on <http://localhost:3001>
 ## Questions
 
 - How to bundle node module with NiceGUI elements?
--
+- What is the nicegui way of handling errors from vue components?
 
 [vue-barcode-scanner]: https://www.npmjs.com/package/vue-barcode-reader
 [NiceGUI]: https://nicegui.io/

@@ -57,6 +57,18 @@ We follow NiceGUI's custom Vue component pattern:
 - **Python**: `self.on('eventName', callback)` - registers event handlers
 - **Important**: Events come wrapped in `GenericEventArguments` - extract data via `event.args`
 
+**Method Calling Pattern:**
+- **Python**: `scanner.run_method("toggleSettings")` - calls Vue component methods from Python
+- **Vue**: Define methods that can be called externally (e.g., `toggleSettings()`)
+
+### Camera Selection Feature
+
+**Implementation:**
+- Auto-detects available cameras using ZXing's `listVideoInputDevices()`
+- Shows Quasar `q-select` dropdown only when multiple cameras available
+- Settings accessible via Python button that calls Vue `toggleSettings()` method
+- Camera switching restarts scanning with new device automatically
+
 ### Development Notes
 
 - JavaScript dependencies managed via npm in project root

@@ -28,6 +28,10 @@ with ui.row():
             scan_toggle.props("icon=stop color=negative")
             scan_toggle.text = "Stop Scanning"
 
+    def toggle_settings():
+        """Toggle camera settings if multiple cameras available."""
+        scanner.run_method("toggleSettings")
+
     def on_scanning_failed(event):
         """Handle when scanning fails to start."""
         # Reset button to start state when scanning fails
@@ -37,20 +41,21 @@ with ui.row():
     def on_camera_error(event):
         """Handle camera errors and show user notification."""
         error_messages = {
-            'NotAllowedError': 'Camera access denied. Please allow camera access and try again.',
-            'NotFoundError': 'No camera detected. Please connect a camera and try again.',
-            'NotReadableError': 'Camera is busy. Please close other camera apps and try again.',
+            "NotAllowedError": "Camera access denied. Please allow camera access and try again.",
+            "NotFoundError": "No camera detected. Please connect a camera and try again.",
+            "NotReadableError": "Camera is busy. Please close other camera apps and try again.",
         }
-        error_type = event.args.get('type', 'Unknown')
-        message = error_messages.get(error_type, 'Camera error occurred. Please check your camera and try again.')
-        ui.notify(message, type='negative')
+        error_type = event.args.get("type", "Unknown")
+        message = error_messages.get(
+            error_type, "Camera error occurred. Please check your camera and try again."
+        )
+        ui.notify(message, type="negative")
 
     scan_toggle = ui.button(
-        "Start Scanning",
-        icon="play_arrow",
-        color="primary",
-        on_click=toggle_scanning
+        "Start Scanning", icon="play_arrow", color="primary", on_click=toggle_scanning
     )
+
+    settings_button = ui.button("", icon="settings", on_click=toggle_settings)
 
     # Set up event handlers after button is created
     scanner.on("scanning_failed", on_scanning_failed)

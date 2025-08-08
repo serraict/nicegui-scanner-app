@@ -2,11 +2,12 @@
 
 ## Incremental Working Examples
 
-- **Add configuration options**
-  - Select barcode formats
-  - Choose camera (front/back)
-  - Consider using `self._props` pattern from examples for passing config to Vue
-  - *Result: Working app with customizable scanning*
+- **Add configuration**
+  - Select barcode formats to scan (QR, Code128, etc.)
+  - viewport settings
+  - 
+  - Use `self._props` pattern for passing config to Vue
+  - *Result: Working app with customizable barcode format scanning*
 - **Add manual trigger**
   - Single "Scan Once" button for one-time scans
   - Manual barcode detection without continuous scanning

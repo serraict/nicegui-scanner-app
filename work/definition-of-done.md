@@ -34,6 +34,8 @@ We prioritize **working software over comprehensive testing**:
 ### ✅ Code Quality
 
 - [ ] Code follows existing patterns and conventions
+- [ ] Use NiceGUI/Quasar styles and components where possible instead of custom CSS
+- [ ] Use Quasar components (q-select, q-btn, etc.) instead of plain HTML elements in Vue templates
 - [ ] No obvious performance issues
 - [ ] Clean, readable implementation
 

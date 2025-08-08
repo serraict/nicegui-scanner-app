@@ -1,6 +1,32 @@
 <template>
   <div class="scanner-container">
     <video ref="scanner" autoplay></video>
+    
+    <!-- Settings overlay -->
+    <div v-if="showSettings" class="fixed-full bg-black-transparent flex flex-center">
+      <div class="bg-white q-pa-md rounded-borders shadow-5" style="min-width: 250px;">
+        <h6 class="q-ma-none q-mb-md">Camera Settings</h6>
+        <div v-if="availableCameras.length > 1" class="q-mb-md">
+          <q-select
+            v-model="selectedCameraId"
+            :options="cameraOptions"
+            option-label="label"
+            option-value="deviceId"
+            @update:model-value="selectCamera"
+            outlined
+            label="Camera"
+            emit-value
+            map-options
+          />
+        </div>
+        <q-btn 
+          @click="showSettings = false" 
+          color="primary" 
+          class="full-width"
+          label="Close"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,16 +38,37 @@ export default {
     return {
       codeReader: null,
       isScanning: false,
+      availableCameras: [],
+      selectedCameraId: null,
+      showSettings: false,
     };
   },
 
   async mounted() {
     await this.loadZXing();
+    await this.detectCameras();
   },
 
   beforeUnmount() {
     if (this.codeReader) {
       this.codeReader.reset();
+    }
+  },
+
+  computed: {
+    cameraOptions() {
+      const options = [
+        { label: 'Auto-select best camera', deviceId: null }
+      ];
+      
+      this.availableCameras.forEach(camera => {
+        options.push({
+          label: camera.label || `Camera ${camera.deviceId.substring(0, 8)}...`,
+          deviceId: camera.deviceId
+        });
+      });
+      
+      return options;
     }
   },
 
@@ -43,13 +90,24 @@ export default {
       });
     },
 
+    async detectCameras() {
+      try {
+        // Create temporary codeReader to detect cameras
+        const tempCodeReader = new window.ZXing.BrowserMultiFormatReader();
+        this.availableCameras = await tempCodeReader.listVideoInputDevices();
+        console.log('Available cameras:', this.availableCameras.length);
+        
+        // Set default camera selection (ZXing will auto-select best if null)
+        this.selectedCameraId = null;
+      } catch (error) {
+        console.log('Camera detection failed:', error);
+        this.availableCameras = [];
+      }
+    },
+
     async initCamera() {
       try {
-        // Request camera access first - this is where permission errors occur
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        this.$refs.scanner.srcObject = stream;
-        
-        // Only initialize ZXing barcode reader after successful camera access
+        // Initialize ZXing barcode reader - it will handle camera access
         this.codeReader = new window.ZXing.BrowserMultiFormatReader();
       } catch (error) {
         console.log('Camera error:', error.name, error.message);
@@ -75,9 +133,9 @@ export default {
       
       // Only set scanning state and start detection if camera is ready
       this.isScanning = true;
-      // Start continuous barcode detection from video stream
+      // Start continuous barcode detection from video stream with selected camera
       // Callback fires whenever a barcode is detected
-      this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
+      this.codeReader.decodeFromVideoDevice(this.selectedCameraId, this.$refs.scanner, (result, err) => {
         if (result && this.isScanning) {
           console.log('Barcode detected:', result.text);
           // Send scan result to Python via NiceGUI event system
@@ -95,6 +153,27 @@ export default {
       }
     },
 
+    selectCamera(cameraId) {
+      this.selectedCameraId = cameraId;
+      console.log('Selected camera:', cameraId);
+      
+      // If currently scanning, restart with new camera
+      if (this.isScanning) {
+        this.stopScanning();
+        this.$nextTick(() => {
+          this.startScanning();
+        });
+      }
+    },
+
+    toggleSettings() {
+      // Always allow settings to be toggled
+      this.showSettings = !this.showSettings;
+    },
+
+    hasMultipleCameras() {
+      return this.availableCameras.length > 1;
+    },
 
   },
 };
@@ -103,6 +182,7 @@ export default {
 <style scoped>
 .scanner-container {
   position: relative;
+  display: inline-block;
 }
 
 video {
@@ -114,4 +194,16 @@ video {
   border-radius: 4px;
 }
 
+.fixed-full {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.bg-black-transparent {
+  background: rgba(0, 0, 0, 0.5);
+}
 </style>

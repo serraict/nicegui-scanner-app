@@ -4,6 +4,6 @@
   "private": true,
   "description": "JavaScript dependencies for NiceGUI barcode scanner app",
   "dependencies": {
-    "vue-barcode-reader": "^1.0.3"
+    "@zxing/library": "^0.21.3"
   }
 }

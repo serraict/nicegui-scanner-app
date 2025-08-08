@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This project demonstrates how to wrap the vue-barcode-scanner component into a NiceGUI UI element. It's based on the NiceGUI custom Vue component example and shows how to create custom Vue components in NiceGUI applications.
+This project demonstrates how to create a barcode scanner using ZXing library wrapped in a NiceGUI UI element. It's based on the NiceGUI custom Vue component pattern and shows how to create custom Vue components in NiceGUI applications.
 
 ## Commands
 
@@ -30,11 +30,11 @@ Our development workflow follows an incremental approach:
 
 ## Architecture
 
-We follow the pattern from NiceGUI's custom vue component example, which is included in the examples directory for reference.
+We follow the pattern from NiceGUI's custom Vue component example.
 
 ### Custom Vue Component Pattern
 
-We follow NiceGUI's custom Vue component pattern as shown in the examples directory:
+We follow NiceGUI's custom Vue component pattern:
 
 **Our Implementation:**
 - **Vue SFC Component** (`barcode_scanner.vue`)
@@ -60,7 +60,8 @@ We follow NiceGUI's custom Vue component pattern as shown in the examples direct
 ### Development Notes
 
 - JavaScript dependencies managed via npm in project root
+- **ZXing Integration**: Uses `@zxing/library` UMD build to avoid ES module complexity
 - Static files served via `app.add_static_files()` when needed
-- **ZXing Integration**: Use UMD build to avoid ES module complexity
 - Manual browser verification required for camera-based components
 - Use `uvicorn_reload_includes='*.py,*.js,*.vue'` for auto-reload during development
+- **Import pattern**: Use relative imports (`from scanner import`) when running app.py directly

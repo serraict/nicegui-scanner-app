@@ -27,7 +27,8 @@ export default {
 
   methods: {
     async loadZXing() {
-      // Load ZXing library via script tag
+      // Dynamically loads ZXing barcode detection library
+      // Uses UMD build to avoid ES module complexity
       return new Promise((resolve, reject) => {
         if (window.ZXing) {
           resolve();
@@ -44,10 +45,11 @@ export default {
 
     async initCamera() {
       try {
-        // Initialize ZXing barcode reader
+        // Initialize ZXing barcode reader for multiple format detection
         this.codeReader = new window.ZXing.BrowserMultiFormatReader();
         
-        // Start camera (but not scanning yet)
+        // Request camera access and connect to video element
+        // This starts the camera preview but doesn't begin barcode scanning
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         this.$refs.scanner.srcObject = stream;
       } catch (error) {
@@ -64,10 +66,12 @@ export default {
       }
       
       this.isScanning = true;
+      // Start continuous barcode detection from video stream
+      // Callback fires whenever a barcode is detected
       this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
         if (result && this.isScanning) {
           console.log('Barcode detected:', result.text);
-          // Emit event to Python backend
+          // Send scan result to Python via NiceGUI event system
           this.$emit('scan', result.text);
         }
       });

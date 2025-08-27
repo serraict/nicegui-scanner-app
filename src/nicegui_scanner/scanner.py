@@ -1,19 +1,20 @@
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 from nicegui.element import Element
 
 
 class BarcodeScanner(Element, component="barcode_scanner.vue"):
 
-    def __init__(self, *, on_scan: Optional[Callable] = None, width: int = 400, height: int = 300, max_width: str = "400px") -> None:
-        super().__init__()
-        self.on("scan", on_scan)
-        self.on("scanning_failed", self._handle_scanning_failed)
-        self._scanning = False
+    def __init__(self, *, on_scan: Optional[Callable] = None, **kwargs: Any) -> None:
+        # Pass all unhandled kwargs to the base Element class
+        super().__init__(**kwargs)
         
-        # Configure scanner properties using _props pattern
-        self._props['width'] = width
-        self._props['height'] = height
-        self._props['maxWidth'] = max_width
+        # Set up event handlers
+        if on_scan:
+            self.on("scan", on_scan)
+        self.on("scanning_failed", self._handle_scanning_failed)
+        
+        # Set internal state
+        self._scanning = False
 
     def start_scanning(self) -> None:
         """Start continuous barcode scanning."""

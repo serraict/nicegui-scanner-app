@@ -12,95 +12,36 @@ def on_scan(event):
     ui.notify(f"Scanned: {barcode_text}")
 
 
-# Scanner component with custom configuration
-scanner = BarcodeScanner(on_scan=on_scan, width=500, height=400, max_width="500px")
+# Example 1: Basic scanner with all defaults
+ui.html("<h3>1. Basic Scanner (Default)</h3>")
+scanner_basic = BarcodeScanner(on_scan=on_scan)
 
-# Create a second scanner with different dimensions for comparison
-ui.html("<h3>Large Scanner (500x400)</h3>")
-scanner
+# Example 2: Large scanner - twice the default width  
+ui.html("<h3>2. Large Scanner (800x300)</h3>")
+scanner_large = BarcodeScanner(on_scan=on_scan).style("width: 800px;")
 
-ui.html("<h3>Small Scanner (300x200)</h3>")  
-scanner_small = BarcodeScanner(on_scan=on_scan, width=300, height=200, max_width="300px")
+# Example 3: Wild styled scanner with colors and effects
+ui.html("<h3>3. Stylish Scanner</h3>")
+scanner_wild = BarcodeScanner(on_scan=on_scan).style("""
+    width: 600px; 
+    height: 250px;
+    border: 4px solid #ff6b35; 
+    border-radius: 20px; 
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px;
+    transform: rotate(-1deg);
+    transition: all 0.3s ease;
+""").classes("hover:scale-105 cursor-pointer")
 
-# Control buttons for large scanner
-ui.html("<h4>Large Scanner Controls</h4>")
-with ui.row():
-
-    def toggle_scanning():
-        if scanner.is_scanning():
-            scanner.stop_scanning()
-            scan_toggle.props("icon=play_arrow color=primary")
-            scan_toggle.text = "Start Large Scanner"
-        else:
-            scanner.start_scanning()
-            scan_toggle.props("icon=stop color=negative")
-            scan_toggle.text = "Stop Large Scanner"
-
-    def toggle_settings():
-        """Toggle camera settings if multiple cameras available."""
-        scanner.run_method("toggleSettings")
-
-    def on_scanning_failed(event):
-        """Handle when scanning fails to start."""
-        # Reset button to start state when scanning fails
-        scan_toggle.props("icon=play_arrow color=primary")
-        scan_toggle.text = "Start Large Scanner"
-
-    def on_camera_error(event):
-        """Handle camera errors and show user notification."""
-        error_messages = {
-            "NotAllowedError": "Camera access denied. Please allow camera access and try again.",
-            "NotFoundError": "No camera detected. Please connect a camera and try again.",
-            "NotReadableError": "Camera is busy. Please close other camera apps and try again.",
-        }
-        error_type = event.args.get("type", "Unknown")
-        message = error_messages.get(
-            error_type, "Camera error occurred. Please check your camera and try again."
-        )
-        ui.notify(message, type="negative")
-
-    scan_toggle = ui.button(
-        "Start Large Scanner", icon="play_arrow", color="primary", on_click=toggle_scanning
-    )
-
-    settings_button = ui.button("", icon="settings", on_click=toggle_settings)
-
-    # Set up event handlers after button is created
-    scanner.on("scanning_failed", on_scanning_failed)
-    scanner.on("camera_error", on_camera_error)
-
-# Control buttons for small scanner
-ui.html("<h4>Small Scanner Controls</h4>")
-with ui.row():
-
-    def toggle_scanning_small():
-        if scanner_small.is_scanning():
-            scanner_small.stop_scanning()
-            scan_toggle_small.props("icon=play_arrow color=primary")
-            scan_toggle_small.text = "Start Small Scanner"
-        else:
-            scanner_small.start_scanning()
-            scan_toggle_small.props("icon=stop color=negative")
-            scan_toggle_small.text = "Stop Small Scanner"
-
-    def toggle_settings_small():
-        """Toggle camera settings for small scanner."""
-        scanner_small.run_method("toggleSettings")
-
-    def on_scanning_failed_small(event):
-        """Handle when small scanner fails to start."""
-        scan_toggle_small.props("icon=play_arrow color=primary")
-        scan_toggle_small.text = "Start Small Scanner"
-
-    scan_toggle_small = ui.button(
-        "Start Small Scanner", icon="play_arrow", color="primary", on_click=toggle_scanning_small
-    )
-
-    settings_button_small = ui.button("", icon="settings", on_click=toggle_settings_small)
-
-    # Set up event handlers for small scanner
-    scanner_small.on("scanning_failed", on_scanning_failed_small)
-    scanner_small.on("camera_error", on_camera_error)
+# Simple controls for all scanners
+with ui.row().classes("gap-4 mt-4"):
+    ui.button("Start Basic", on_click=lambda: scanner_basic.start_scanning()).props("color=teal")
+    ui.button("Start Large", on_click=lambda: scanner_large.start_scanning()).props("color=purple") 
+    ui.button("Start Stylish", on_click=lambda: scanner_wild.start_scanning()).props("color=orange")
+    
+with ui.row().classes("gap-4"):
+    ui.button("Stop All", on_click=lambda: [s.stop_scanning() for s in [scanner_basic, scanner_large, scanner_wild]]).props("color=red")
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(port=3001)

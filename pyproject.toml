@@ -1,9 +1,45 @@
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
 [project]
-name = "nicegui-scanner-app"
-version = "0.1.0"
-description = "NiceGUI barcode scanner app - wraps vue-barcode-scanner into a NiceGUI UI element"
-readme = "readme.md"
-requires-python = ">=3.12"
-dependencies = [
-    "nicegui>=2.22.1",
+name = "nicegui-scanner"
+dynamic = ["version"]
+description = "A barcode scanner component for NiceGUI applications"
+authors = [
+    {name = "NiceGUI Scanner Contributors"}
 ]
+readme = "readme.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "nicegui>=1.0.0",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Multimedia :: Graphics :: Capture :: Digital Camera",
+]
+keywords = ["nicegui", "barcode", "scanner", "qr-code", "vue", "camera"]
+
+[project.urls]
+Homepage = "https://github.com/serraict/nicegui-scanner-app"
+Repository = "https://github.com/serraict/nicegui-scanner-app"
+Issues = "https://github.com/serraict/nicegui-scanner-app/issues"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+fallback-version = "0.0.0"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nicegui_scanner"]

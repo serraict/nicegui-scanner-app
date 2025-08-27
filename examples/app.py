@@ -1,8 +1,8 @@
 from nicegui import ui, app
-from scanner import BarcodeScanner
+from nicegui_scanner import BarcodeScanner
 
 # Serve node_modules for potential future JS dependencies
-app.add_static_files("/node_modules", "node_modules")
+app.add_static_files("/node_modules", "../node_modules")
 
 
 def on_scan(event):

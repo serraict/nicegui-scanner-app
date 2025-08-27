@@ -4,11 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This project demonstrates how to create a barcode scanner using ZXing library wrapped in a NiceGUI UI element. It's based on the NiceGUI custom Vue component pattern and shows how to create custom Vue components in NiceGUI applications.
+This project demonstrates how to create a barcode scanner using ZXing library wrapped in a NiceGUI UI element.
+It's based on the NiceGUI custom Vue component pattern and shows how to create custom Vue components in NiceGUI applications.
 
 ## Commands
 
-Us `uv` for dependency management an project initialization.
+Use `uv` for dependency management an project initialization.
+
+Use `uv run ...` for running Python scripts and programs in the virtual environment.
 
 ## Workflow
 
@@ -27,6 +30,7 @@ Our development workflow follows an incremental approach:
 - Commit work regularly
 - Manual verification is our primary testing approach - this means actually testing in a browser, not just checking that commands run without errors
 - Focus on delivering value over perfect code
+- We want to maintain as little code as possible
 
 ## Architecture
 
@@ -37,6 +41,7 @@ We follow the pattern from NiceGUI's custom Vue component example.
 We follow NiceGUI's custom Vue component pattern:
 
 **Our Implementation:**
+
 - **Vue SFC Component** (`barcode_scanner.vue`)
   - Uses native browser APIs like `getUserMedia` for camera access
   - Integrates ZXing library via UMD build for barcode detection
@@ -53,21 +58,15 @@ We follow NiceGUI's custom Vue component pattern:
 ### Vue↔Python Communication
 
 **Event Pattern:**
+
 - **Vue**: `this.$emit('eventName', data)` - emits events with data
 - **Python**: `self.on('eventName', callback)` - registers event handlers
 - **Important**: Events come wrapped in `GenericEventArguments` - extract data via `event.args`
 
 **Method Calling Pattern:**
+
 - **Python**: `scanner.run_method("toggleSettings")` - calls Vue component methods from Python
 - **Vue**: Define methods that can be called externally (e.g., `toggleSettings()`)
-
-### Camera Selection Feature
-
-**Implementation:**
-- Auto-detects available cameras using ZXing's `listVideoInputDevices()`
-- Shows Quasar `q-select` dropdown only when multiple cameras available
-- Settings accessible via Python button that calls Vue `toggleSettings()` method
-- Camera switching restarts scanning with new device automatically
 
 ### Development Notes
 

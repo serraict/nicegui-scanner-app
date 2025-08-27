@@ -1,6 +1,6 @@
 <template>
   <div class="scanner-container">
-    <video ref="scanner" autoplay></video>
+    <video ref="scanner" autoplay :style="{ width: maxWidth, height: height + 'px', objectFit: 'cover' }"></video>
     
     <!-- Settings overlay -->
     <div v-if="showSettings" class="fixed-full bg-black-transparent flex flex-center">
@@ -34,6 +34,21 @@
 export default {
   name: "barcode-scanner",
 
+  props: {
+    width: {
+      type: Number,
+      default: 400
+    },
+    height: {
+      type: Number,
+      default: 300
+    },
+    maxWidth: {
+      type: String,
+      default: "400px"
+    }
+  },
+
   data() {
     return {
       codeReader: null,
@@ -45,6 +60,7 @@ export default {
   },
 
   async mounted() {
+    console.log('Scanner mounted with props:', { width: this.width, height: this.height, maxWidth: this.maxWidth });
     await this.loadZXing();
     await this.detectCameras();
   },
@@ -182,9 +198,6 @@ export default {
 }
 
 video {
-  width: 100%;
-  max-width: 400px;
-  height: 300px;
   background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 4px;

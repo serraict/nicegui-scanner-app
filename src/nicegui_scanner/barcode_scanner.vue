@@ -1,6 +1,6 @@
 <template>
-  <div class="scanner-container" style="display: inline-block;">
-    <video ref="scanner" autoplay v-bind="$attrs" class="default-video-styles"></video>
+  <div class="scanner-container">
+    <video ref="scanner" autoplay v-bind="$attrs"></video>
     
     <!-- Settings overlay -->
     <div v-if="showSettings" class="fixed-full bg-black-transparent flex flex-center">
@@ -46,7 +46,6 @@ export default {
   },
 
   async mounted() {
-    console.log('Scanner mounted');
     await this.loadZXing();
     await this.detectCameras();
   },
@@ -97,12 +96,10 @@ export default {
         // Create temporary codeReader to detect cameras
         const tempCodeReader = new window.ZXing.BrowserMultiFormatReader();
         this.availableCameras = await tempCodeReader.listVideoInputDevices();
-        console.log('Available cameras:', this.availableCameras.length);
         
         // Set default camera selection (ZXing will auto-select best if null)
         this.selectedCameraId = null;
       } catch (error) {
-        console.log('Camera detection failed:', error);
         this.availableCameras = [];
       }
     },
@@ -112,7 +109,6 @@ export default {
         // Initialize ZXing barcode reader - it will handle camera access
         this.codeReader = new window.ZXing.BrowserMultiFormatReader();
       } catch (error) {
-        console.log('Camera error:', error.name, error.message);
         this.codeReader = null;
         // Emit event to Python for user notification
         this.$emit('camera_error', { type: error.name, message: error.message });
@@ -139,7 +135,6 @@ export default {
       // Callback fires whenever a barcode is detected
       this.codeReader.decodeFromVideoDevice(this.selectedCameraId, this.$refs.scanner, (result, err) => {
         if (result && this.isScanning) {
-          console.log('Barcode detected:', result.text);
           // Send scan result to Python via NiceGUI event system
           this.$emit('scan', result.text);
         }
@@ -157,7 +152,6 @@ export default {
 
     selectCamera(cameraId) {
       this.selectedCameraId = cameraId;
-      console.log('Selected camera:', cameraId);
       
       // If currently scanning, restart with new camera
       if (this.isScanning) {
@@ -180,15 +174,13 @@ export default {
 <style scoped>
 .scanner-container {
   position: relative;
+  display: inline-block;
 }
 
-.default-video-styles {
-  width: 400px;
-  height: 300px;
+video {
+  display: block;
+  background-color: #f5f5f5;
   object-fit: cover;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
 }
 
 .fixed-full {

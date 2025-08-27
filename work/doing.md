@@ -40,12 +40,19 @@
 - ✅ Dynamic versioning works (v0.1.0 tag → nicegui_scanner-0.1.0 package)
 - ✅ Package builds successfully (`make build` creates wheel and source dist)
 - ✅ The package is uploaded to PyPi in the publish step (GitHub Actions configured)
-- ⏳ Github actions builds package for every push to main
-- ⏳ Github actions build package and pushes to PyPi for all version tags (`v0.4.1`) that are pushed to github
+- ✅ Github actions builds package for every push to main (CI succeeded)
+- ⏳ Github actions build package and pushes to PyPi for all version tags (blocked on PyPI trusted publishing config)
 
 **Completed Implementation**:
 
 - ✅ GitHub Actions CI/CD pipeline (`.github/workflows/ci.yml` & `release.yml`)
 - ✅ Testing in NiceGUI `page` context (`examples/page_example.py`)
 
-**Result**: ⏳ waiting on succesfull builds and PyPi publish
+**Blocking Issue**: PyPI trusted publishing configuration needed at https://pypi.org/manage/account/publishing/
+
+**Required Configuration**:
+- Repository: `serraict/nicegui-scanner-app`
+- Environment: `release`
+- Workflow: `.github/workflows/release.yml`
+
+**Result**: ⏳ GitHub Actions working perfectly, blocked on PyPI configuration

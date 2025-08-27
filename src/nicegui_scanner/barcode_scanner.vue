@@ -171,10 +171,6 @@ export default {
       this.showSettings = !this.showSettings;
     },
 
-    hasMultipleCameras() {
-      return this.availableCameras.length > 1;
-    },
-
   },
 };
 </script>

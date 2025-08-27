@@ -9,6 +9,7 @@ install:  ## Install package in editable mode
 	uv pip install -e .
 
 build:  ## Build package for distribution
+	python copy_zxing.py
 	uv build
 
 clean:  ## Clean build artifacts

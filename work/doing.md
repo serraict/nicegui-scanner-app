@@ -44,9 +44,16 @@
 - ✅ Github actions build package and pushes to PyPi for all version tags (SUCCESS v0.1.2)
 - manual testing:
   - start a new project
-  - then follow readme documentation
+  - then follow readme documentation  
   - pip install nicegui, pip install nicegui-scanner,
   - and see that the app is running and scanning qr codes
+  
+**RESOLVED**: ZXing JavaScript library bundling complete
+- ✅ ZXing library copied to package (336KB successfully copied)
+- ✅ Automatic static file serving in scanner.py
+- ✅ Vue component loads from `/static/nicegui-scanner/zxing.min.js`
+- ✅ Build process working (`python copy_zxing.py` before build)
+- **Ready for final manual testing**
 
 **Completed Implementation**:
 

@@ -14,7 +14,7 @@ pip install nicegui nicegui-scanner
 
 ### Basic Example
 
-Create a simple barcode scanner app:
+Create a simple barcode scanner app (save as `scanner_app.py`):
 
 ```python
 from nicegui import ui
@@ -26,7 +26,7 @@ def on_scan(event):
 
 ui.html("<h1>My Barcode Scanner</h1>")
 
-# Create scanner with custom styling
+# Create scanner with custom styling  
 scanner = BarcodeScanner(on_scan=on_scan).style(
     "width: 400px; height: 300px; border: 2px solid #007acc;"
 )
@@ -38,6 +38,10 @@ with ui.row():
 
 ui.run()
 ```
+
+Then run: `python scanner_app.py`
+
+**Note**: The ZXing JavaScript library is automatically bundled with the package - no additional setup required!
 
 ### Features
 

@@ -84,7 +84,7 @@ export default {
         }
 
         const script = document.createElement('script');
-        script.src = '/node_modules/@zxing/library/umd/index.min.js';
+        script.src = '/static/nicegui-scanner/zxing.min.js';
         script.onload = () => resolve();
         script.onerror = () => reject(new Error('Failed to load ZXing'));
         document.head.appendChild(script);

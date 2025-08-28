@@ -181,6 +181,8 @@ video {
   display: block;
   background-color: #f5f5f5;
   object-fit: cover;
+  width: 400px;
+  height: 300px;
 }
 
 .fixed-full {

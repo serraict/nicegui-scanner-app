@@ -1,4 +1,4 @@
-.PHONY: help install build clean test publish dev
+.PHONY: help install build clean test publish dev 
 
 help:  ## Show this help message
 	@echo "Available commands:"
@@ -31,13 +31,16 @@ publish:  ## Publish to PyPI (requires PyPI token)
 	uv publish
 	@echo "Package published successfully!"
 
-dev:  ## Run example app in development mode
+dev:
 	cd examples && uv run python app.py
 
-version:  ## Show current version
+dev-pages:
+	cd examples && uv run python pages.py
+
+version:
 	@uv run python -c "import nicegui_scanner; print(f'Version: {nicegui_scanner.__version__}')"
 
-tag:  ## Create and push version tag (usage: make tag VERSION=v0.1.0)
+tag:
 	@if [ -z "$(VERSION)" ]; then echo "Usage: make tag VERSION=v0.1.0"; exit 1; fi
 	git tag $(VERSION)
 	git push origin $(VERSION)

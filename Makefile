@@ -38,6 +38,7 @@ dev-pages:
 	cd examples && uv run python pages.py
 
 # Get current version from uv-dynamic-versioning
+# this is not the same as what is being retrieved by uv build - what is going on?
 VERSION := $(shell uv run python -c "import nicegui_scanner; print(nicegui_scanner.__version__)" 2>/dev/null | sed 's/\.post.*//; s/\.dev.*//')
 NEXT_PATCH := $(shell echo $(VERSION) | awk -F. '{$$3=$$3+1; print $$1"."$$2"."$$3}')
 NEXT_MINOR := $(shell echo $(VERSION) | awk -F. '{$$2=$$2+1; $$3=0; print $$1"."$$2"."$$3}')

@@ -73,4 +73,4 @@ release-next-minor: releasable  ## Release next minor version
 	git push origin main --tags
 	@echo "Released v$(NEXT_MINOR)"
 
-release: release-next-minor
+release: release-next-patch

@@ -24,42 +24,29 @@ from nicegui import ui
 from nicegui_scanner import BarcodeScanner
 
 def on_scan(event):
-    barcode = event.args
-    ui.notify(f"Scanned: {barcode}")
+    ui.notify(f"Scanned: {event.args}")
 
-ui.html("<h1>My Barcode Scanner</h1>")
-
-# Create scanner with custom styling  
-scanner = BarcodeScanner(on_scan=on_scan).style(
-    "width: 400px; height: 300px; border: 2px solid #007acc;"
-)
-
-# Add controls
-with ui.row():
-    ui.button("Start", on_click=scanner.start_scanning)
-    ui.button("Stop", on_click=scanner.stop_scanning)
+scanner = BarcodeScanner(on_scan=on_scan)
+scanner.create_controls()
 
 ui.run()
 ```
 
 Then run: `python scanner_app.py`
 
-**Note**: The ZXing JavaScript library is automatically bundled with the package - no additional setup required!
-
 ### Features
 
-- **Easy Integration**: Drop-in component for NiceGUI apps
+- **Easy Integration**: Drop-in component for NiceGUI apps - no additional setup require after pip install
 - **Camera Selection**: Automatic camera detection with settings UI
 - **Flexible Styling**: Use standard CSS via `.style()` method
 - **Multiple Formats**: Supports QR codes, barcodes, and more via ZXing
-- **Page Context**: Works in both `ui.run()` and `@ui.page()` contexts
 
 ### Examples
 
 See the `examples/` directory for:
 
 - `app.py` - Multiple scanner configurations
-- `page_example.py` - Usage with NiceGUI pages
+- `pages.py` - Usage with NiceGUI pages
 
 ## Development
 
@@ -72,11 +59,6 @@ make dev     # Run example app
 ```
 
 This will start the example app on <http://localhost:3001> with multiple scanner demos.
-
-## Questions
-
-- How to bundle node module with NiceGUI elements?
-- What is the nicegui way of handling errors from vue components?
 
 [ZXing library]: https://www.npmjs.com/package/@zxing/library
 [NiceGUI]: https://nicegui.io/

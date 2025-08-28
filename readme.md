@@ -1,5 +1,8 @@
 # NiceGUI barcode scanner app
 
+[![PyPI version](https://badge.fury.io/py/nicegui-scanner.svg)](https://pypi.org/project/nicegui-scanner/)
+[![Release](https://github.com/serraict/nicegui-scanner-app/actions/workflows/release.yml/badge.svg)](https://github.com/serraict/nicegui-scanner-app/actions/workflows/release.yml)
+
 This project demonstrates how to create a barcode scanner using the [ZXing library] wrapped in a [NiceGUI] custom Vue component.
 Based on [this discussion](https://github.com/zauberzeug/nicegui/discussions/5016),
 and inspired by the [custom vue component example].
@@ -54,6 +57,7 @@ Then run: `python scanner_app.py`
 ### Examples
 
 See the `examples/` directory for:
+
 - `app.py` - Multiple scanner configurations
 - `page_example.py` - Usage with NiceGUI pages
 

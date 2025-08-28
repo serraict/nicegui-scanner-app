@@ -50,7 +50,7 @@ See the `examples/` directory for:
 
 ## Development
 
-To develop this component, install dependencies and run the hello world app:
+To develop this component, install dependencies and run the example app:
 
 ```bash
 npm install  # Install ZXing library

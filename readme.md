@@ -60,6 +60,10 @@ make dev     # Run example app
 
 This will start the example app on <http://localhost:3001> with multiple scanner demos.
 
+To release a new version, run `make release`.
+This will bump the version number and push to Github,
+where the release workflow will build and publish to Github.
+
 [ZXing library]: https://www.npmjs.com/package/@zxing/library
 [NiceGUI]: https://nicegui.io/
 [custom vue component example]: https://github.com/zauberzeug/nicegui/tree/main/examples/custom_vue_component

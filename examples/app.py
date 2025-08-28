@@ -13,12 +13,14 @@ def on_scan(event):
 
 
 # Example 1: Basic scanner with minimal styling
-ui.html("<h3>1. Basic Scanner</h3>")
 scanner_basic = BarcodeScanner(on_scan=on_scan)
+scanner_basic.create_control_buttons()
 
 # Example 2: Large scanner - twice the default width
-ui.html("<h3>2. Large Scanner (800x300)</h3>")
 scanner_large = BarcodeScanner(on_scan=on_scan).style("width: 800px; height: 300px;")
+with ui.button_group():
+    ui.button("Start", on_click=lambda: scanner_large.start_scanning())
+    ui.button("Stop", on_click=lambda: scanner_large.stop_scanning())
 
 # Example 3: Wild styled scanner with colors and effects
 ui.html("<h3>3. Stylish Scanner</h3>")
@@ -26,10 +28,10 @@ scanner_wild = (
     BarcodeScanner(on_scan=on_scan)
     .style(
         """
-    width: 600px; 
+    width: 600px;
     height: 250px;
-    border: 4px solid #ff6b35; 
-    border-radius: 20px; 
+    border: 4px solid #ff6b35;
+    border-radius: 20px;
     box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 15px;
@@ -40,19 +42,8 @@ scanner_wild = (
     .classes("hover:scale-105 cursor-pointer")
 )
 
-# Simple controls for all scanners
-with ui.row().classes("gap-4 mt-4"):
-    ui.button("Start Basic", on_click=lambda: scanner_basic.start_scanning()).props(
-        "color=teal"
-    )
-    ui.button("Start Large", on_click=lambda: scanner_large.start_scanning()).props(
-        "color=purple"
-    )
-    ui.button("Start Stylish", on_click=lambda: scanner_wild.start_scanning()).props(
-        "color=orange"
-    )
-
-with ui.row().classes("gap-4"):
+with ui.row().classes():
+    ui.button("Start Stylish", on_click=lambda: scanner_wild.start_scanning())
     ui.button(
         "Stop All",
         on_click=lambda: [

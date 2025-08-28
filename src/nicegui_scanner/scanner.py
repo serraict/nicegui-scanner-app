@@ -1,6 +1,6 @@
 from typing import Any, Callable, Optional
 from nicegui.element import Element
-from nicegui import app
+from nicegui import app, ui
 import importlib.resources
 
 
@@ -37,6 +37,19 @@ class BarcodeScanner(Element, component="barcode_scanner.vue"):
     def is_scanning(self) -> bool:
         """Check if scanner is currently in scanning mode."""
         return self._scanning
+
+    def create_control_buttons(self) -> None:
+        """Create a button group with start, stop, and settings controls."""
+        with ui.button_group():
+            ui.button("", icon="qr_code_scanner", on_click=self.start_scanning).tooltip(
+                "Start scanning"
+            )
+            ui.button("", icon="stop", on_click=self.stop_scanning).tooltip(
+                "Stop scanning"
+            )
+            ui.button(
+                "", icon="settings", on_click=lambda: self.run_method("toggleSettings")
+            ).tooltip("Settings")
 
     def _configure_static_files(self) -> None:
         """Configure static file serving for ZXing library."""

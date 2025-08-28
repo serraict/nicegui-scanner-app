@@ -37,14 +37,15 @@ dev:
 dev-pages:
 	cd examples && uv run python pages.py
 
-# Get current version from uv-dynamic-versioning
-# this is not the same as what is being retrieved by uv build - what is going on?
-VERSION := $(shell uv run python -c "import nicegui_scanner; print(nicegui_scanner.__version__)" 2>/dev/null | sed 's/\.post.*//; s/\.dev.*//')
-NEXT_PATCH := $(shell echo $(VERSION) | awk -F. '{$$3=$$3+1; print $$1"."$$2"."$$3}')
-NEXT_MINOR := $(shell echo $(VERSION) | awk -F. '{$$2=$$2+1; $$3=0; print $$1"."$$2"."$$3}')
+# Get current version from git describe (same logic as uv build)
+GIT_VERSION := $(shell git describe --tags 2>/dev/null || echo "v0.0.0")
+BASE_VERSION := $(shell echo $(GIT_VERSION) | sed 's/^v//' | sed 's/-.*//')
+NEXT_PATCH := $(shell echo $(BASE_VERSION) | awk -F. '{$$3=$$3+1; print $$1"."$$2"."$$3}')
+NEXT_MINOR := $(shell echo $(BASE_VERSION) | awk -F. '{$$2=$$2+1; $$3=0; print $$1"."$$2"."$$3}')
 
 version:
-	@uv run python -c "import nicegui_scanner; print(f'Version: {nicegui_scanner.__version__}')"
+	@echo "Git describe: $(GIT_VERSION)"
+	@echo "Base version: $(BASE_VERSION)"
 	@echo "Next patch: $(NEXT_PATCH)"
 	@echo "Next minor: $(NEXT_MINOR)"
 

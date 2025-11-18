@@ -36,7 +36,7 @@ Then run: `python scanner_app.py`
 
 ### Features
 
-- **Easy Integration**: Drop-in component for NiceGUI apps - no additional setup require after pip install
+- **Easy Integration**: Drop-in component for NiceGUI apps - no additional setup required after pip install
 - **Camera Selection**: Automatic camera detection with settings UI
 - **Flexible Styling**: Use standard CSS via `.style()` method
 - **Multiple Formats**: Supports QR codes, barcodes, and more via ZXing
@@ -51,14 +51,14 @@ See the `examples/` directory for:
 ### Mobile Browsers
 
 Mobile browsers typically require a secure context before they expose the camera.
-Serve your NiceGUI app over HTTPS (even on a local network) and accept the browser's camera prompt.
+Serve your NiceGUI app over HTTPS (even on a local network) or use `localhost` during development, and accept the browser's camera prompt.
 The component relies on the [ZXing library], so device support follows its limitations.
 
 To test the compatibility of your device with the ZXing component, please use this Javascript-only web app:
 
 <https://www.serraict.com/scanner-pwa/>
 
-If that app works, then the ZXing component is compatible with you device, and the nicegui-scanner component should be too.
+If that app works, then the ZXing component is compatible with your device, and the nicegui-scanner component should be too.
 
 ## Development
 

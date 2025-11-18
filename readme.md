@@ -27,7 +27,7 @@ def on_scan(event):
     ui.notify(f"Scanned: {event.args}")
 
 scanner = BarcodeScanner(on_scan=on_scan)
-scanner.create_controls()
+scanner.create_control_buttons()
 
 ui.run()
 ```

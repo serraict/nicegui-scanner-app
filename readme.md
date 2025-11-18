@@ -48,6 +48,18 @@ See the `examples/` directory for:
 - `app.py` - Multiple scanner configurations
 - `pages.py` - Usage with NiceGUI pages
 
+### Mobile Browsers
+
+Mobile browsers typically require a secure context before they expose the camera.
+Serve your NiceGUI app over HTTPS (even on a local network) and accept the browser's camera prompt.
+The component relies on the [ZXing library], so device support follows its limitations.
+
+To test the compatibility of your device with the ZXing component, please use this Javascript-only web app:
+
+<https://www.serraict.com/scanner-pwa/>
+
+If that app works, then the ZXing component is compatible with you device, and the nicegui-scanner component should be too.
+
 ## Development
 
 To develop this component, install dependencies and run the example app:
